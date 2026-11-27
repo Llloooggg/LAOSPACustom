@@ -9,7 +9,7 @@ $root = $PSScriptRoot
 $out  = Join-Path (Split-Path $root -Parent) 'L_aospa_custom.zip'
 
 $files = Get-ChildItem -Recurse -File $root |
-    Where-Object { $_.Name -ne 'build.ps1' -and $_.Extension -ne '.zip' }
+    Where-Object { $_.Name -ne 'build.ps1' -and $_.Extension -ne '.zip' -and $_.FullName -notmatch '\\\.git\\' }
 
 if (Test-Path $out) { Remove-Item $out -Force }
 $fs = [IO.File]::Open($out, [IO.FileMode]::Create)

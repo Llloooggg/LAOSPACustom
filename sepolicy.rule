@@ -1,0 +1,2 @@
+allow vendor_sensor_notifier vendor_sensor_notifier qipcrtr_socket { ioctl read write create getattr setattr lock append map bind connect getopt setopt shutdown }
+allowxperm vendor_sensor_notifier vendor_sensor_notifier qipcrtr_socket ioctl { 0xC300-0xC305 }
