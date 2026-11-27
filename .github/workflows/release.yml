@@ -1,0 +1,41 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to release'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Build module zip
+        run: |
+          tag="${{ inputs.tag || github.ref_name }}"
+          rm -f "L_aospa_custom-${tag}.zip"
+          zip -r "L_aospa_custom-${tag}.zip" . \
+            -x '.git/*' '.github/*' '.gitattributes' 'build.ps1' '*.zip'
+          unzip -l "L_aospa_custom-${tag}.zip"
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          name: L AOSPA custom ${{ inputs.tag || github.ref_name }}
+          files: L_aospa_custom-*.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
