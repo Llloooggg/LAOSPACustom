@@ -12,3 +12,7 @@ chcon u:object_r:vendor_file:s0 "$MODDIR/system/vendor/lib64/nt" \
 
 # the notifier starts in class main before this script; restart it now
 setprop ctl.restart vendor.sensor-notifier
+
+# TCP BBR + fq qdisc (needs the proc_net allow in sepolicy.rule)
+echo bbr > /proc/sys/net/ipv4/tcp_congestion_control 2>/dev/null
+echo fq > /proc/sys/net/core/default_qdisc 2>/dev/null

@@ -1,6 +1,6 @@
 id=L_aospa_custom
 name=L AOSPA custom
-version=2.0
-versionCode=11
+version=2.1
+versionCode=12
 author=llloooggg
 description=Tweaks for POCO F5 (marble) on Paranoid Android Vauxite: sensor-notifier with RawLightNotifier (under-display ALS compensation), HW rounded corners, V4L input scan off, earlier release of SF buffer slots, headset volume keys fix. Dolby stack is provided by a separate module.
